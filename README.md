@@ -134,3 +134,45 @@ Which will render out.
 <!--This XML file was written on 2018-06-24 15:57:23. Bye!-->
 ```
 
+**中文补充**
+
+增加百度蜘蛛专用协议
+```php
+
+use Thepixeldeveloper\Sitemap\Urlset;
+use Thepixeldeveloper\Sitemap\Url;
+use Thepixeldeveloper\Sitemap\Extensions\Mobile;
+use Thepixeldeveloper\Sitemap\Drivers\XmlWriterDriver;
+
+$url = new Url($loc);
+$url->setLastMod($lastMod);
+$url->setChangeFreq($changeFreq);
+$url->setPriority($priority);
+$mobile = new Mobile();
+$mobile->setType('pc,mobile');
+$url->addExtension($mobile);
+
+$urlset = new Urlset();
+$urlset->add($url);
+
+$driver = new XmlWriterDriver();
+$urlset->accept($driver);
+
+echo $driver->output();
+
+```
+输出示例
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://w
+ww.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd" 
+xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:mobile="http://www.baidu.
+com/schemas/sitemap-mobile/1/">
+    <url>
+        <loc>http://baidu.com</loc>
+        <mobile:mobile type="pc,mobile"/>
+    </url>
+</urlset>
+
+```

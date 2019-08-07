@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 namespace Tests\Thepixeldeveloper\Sitemap\Drivers;
+include_once '../../vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
 use Thepixeldeveloper\Sitemap\Drivers\XmlWriterDriver;
@@ -144,14 +145,19 @@ XML;
 
     public function testMobileExtension()
     {
+        $url    = new Url('http://baidu.com');
         $mobile = new Mobile();
+        $mobile->setType('pc,mobile');
+        $url->addExtension($mobile);
+
+        $urlset = new Urlset();
+        $urlset->add($url);
 
         $driver = new XmlWriterDriver();
-        $driver->visitMobileExtension($mobile);
+        $urlset->accept($driver);
 
         $expected = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<mobile:mobile/>
+<?xml version="1.0" encoding="UTF-8"?><urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:mobile="http://www.baidu.com/schemas/sitemap-mobile/1/"><url><loc>http://baidu.com</loc><mobile:mobile type="pc,mobile"/></url></urlset>
 XML;
 
         $this->assertSame($expected, $driver->output());
@@ -212,3 +218,5 @@ XML;
         $this->assertSame($expected, $driver->output());
     }
 }
+
+(new XmlWriterDriverTest)->testLinkExtension();

@@ -43,9 +43,9 @@ class XmlWriterDriver implements DriverInterface
         ],
         Mobile::class => [
             'name'    => 'xmlns:mobile',
-            'content' => 'http://www.google.com/schemas/sitemap-mobile/1.0',
+            'content' => 'http://www.baidu.com/schemas/sitemap-mobile/1/',
         ],
-        Link::class => [
+        Link::class   => [
             'name'    => 'xmlns:xhtml',
             'content' => 'http://www.w3.org/1999/xhtml',
         ],
@@ -91,7 +91,7 @@ class XmlWriterDriver implements DriverInterface
         if ($content instanceof \DateTimeInterface) {
             $this->writer->writeElement($name, $content->format(DATE_W3C));
         } else {
-            $this->writer->writeElement($name, (string) $content);
+            $this->writer->writeElement($name, (string)$content);
         }
     }
 
@@ -104,7 +104,7 @@ class XmlWriterDriver implements DriverInterface
             'xsi:schemaLocation',
             'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd'
         );
-        
+
         $this->writer->writeAttribute(
             'xmlns',
             'http://www.sitemaps.org/schemas/sitemap/0.9'
@@ -151,7 +151,7 @@ class XmlWriterDriver implements DriverInterface
          */
         foreach ($urlset->all() as $item) {
             foreach ($item->getExtensions() as $extension) {
-                $extensionClass = get_class($extension);
+                $extensionClass      = get_class($extension);
                 $extensionAttributes = $this->extensionAttributes[$extensionClass];
 
                 if (!in_array($extensionClass, $this->extensions, true)) {
@@ -205,7 +205,9 @@ class XmlWriterDriver implements DriverInterface
 
     public function visitMobileExtension(Mobile $mobile)
     {
-        $this->writer->writeElement('mobile:mobile');
+        $this->writer->startElement('mobile:mobile');
+        $this->writer->writeAttribute('type', $mobile->getType());
+        $this->writer->endElement();
     }
 
     public function visitNewsExtension(News $news)

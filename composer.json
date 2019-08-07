@@ -1,12 +1,12 @@
 {
-	"name": "thepixeldeveloper/sitemap",
+	"name": "first236108/sitemap",
 	"type": "library",
 	"description": "PHP XML sitemap generation",
-	"keywords": ["php", "sitemap", "xml", "sitemap-php", "sitemap-builder", "sitemap-generator", "sitemap-xml", "xml-sitemap"],
+	"keywords": ["php", "sitemap", "xml", "百度sitemap"],
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Mathew Davies",
+			"name": "Alex Pan",
 			"role": "Developer"
 		}
 	],
