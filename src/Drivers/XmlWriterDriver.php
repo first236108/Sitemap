@@ -89,7 +89,7 @@ class XmlWriterDriver implements DriverInterface
         }
 
         if ($content instanceof \DateTimeInterface) {
-            $this->writer->writeElement($name, $content->format(DATE_W3C));
+            $this->writer->writeElement($name, $content->format('Y-m-d'));
         } else {
             $this->writer->writeElement($name, (string)$content);
         }

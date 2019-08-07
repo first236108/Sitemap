@@ -4,7 +4,6 @@ namespace Thepixeldeveloper\Sitemap\Extensions;
 
 use Thepixeldeveloper\Sitemap\Interfaces\DriverInterface;
 use Thepixeldeveloper\Sitemap\Interfaces\VisitorInterface;
-use XMLWriter;
 
 /**
  * Class Mobile
@@ -31,7 +30,7 @@ class Mobile implements VisitorInterface
     /**
      * @param mixed $type
      */
-    public function setType($type): void
+    public function setType($type)
     {
         $this->type = $type;
     }
