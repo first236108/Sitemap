@@ -65,9 +65,9 @@ class Url implements VisitorInterface
     }
 
     /**
-     * @param DateTimeInterface $lastMod
+     * @param DateTimeInterface|string $lastMod
      */
-    public function setLastMod(DateTimeInterface $lastMod)
+    public function setLastMod($lastMod)
     {
         $this->lastMod = $lastMod;
     }
